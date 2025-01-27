@@ -3,25 +3,6 @@ const menu = document.getElementById('menu')
 const loader = document.getElementById('loader');
 const c_btn = document.getElementById('close-btn')
 
-const size = document.getElementById('size'); // Get the element where size is displayed
-const sizeButtons = document.querySelectorAll('.size-btn'); // Corrected to select by class
-const checkout = document.getElementById('checkout');
-let selected_price; // Variable to hold the selected price
-
-// Add event listener for each size button
-sizeButtons.forEach(button => {
-  button.addEventListener('click', (e) => {
-    // Update the size display with the innerHTML of the clicked button (first character of nickname)
-    size.innerHTML = e.target.innerHTML;
-    
-    // Get the price associated with the button from its ID and store it in selected_price
-    selected_price = e.target.id; // This will store the value from button's ID (price)
-  });
-});
-
-checkout.addEventListener('click' , (e)=>{
-  createSession(selected_price);
-})
 
 
 
