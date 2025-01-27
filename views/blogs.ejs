@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="shortcut icon" href="assets/logo.jpeg" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script defer src="https://kit.fontawesome.com/00e77377ee.js" crossorigin="anonymous"></script>
+    <title>Blogs | BaytClothing</title>
+    <style>
+        section{
+            margin: 88px auto;
+            max-width: 1150px;
+
+        }
+        .blog{
+            display: flex;
+            gap: 13px;
+            align-items: start;
+            padding: 13px 8px;
+            margin-top: 13px;
+        }
+        .blog p{
+            color: #232323;
+            line-height: 20px;
+        }
+        .blog img{
+            width: 400px;
+            height: 400px;
+            
+        }
+        .blog div:nth-child(2){
+            display: flex;
+            flex-direction: column;
+            gap: 13px;
+            align-items: start;
+        }
+        @media screen and (max-width: 780px) {
+            .blog{
+           
+                flex-direction: column;
+            }
+            .blog div:nth-child(1){
+                width: 100%;
+                height: 400px;
+            }
+            .blog img{
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+    </style>
+</head>
+<body>
+        <%- include('./partials/header.ejs') %>
+        <section>
+            <div class="blog">
+                <div>
+                    <img src="assets/blog1.jpg" alt="thumbnail for the blog">
+                </div>
+                <div>
+                    <h2>Effortless Shirt Care: Tips to Keep Your Shirts Looking New.</h2>
+                    <p>Keeping your shirts looking fresh and new doesn’t have to be complicated. Start by always following the care label instructions and washing your shirts in cold water to preserve colors and prevent shrinkage. Separate light and dark colors to avoid bleeding, and use a gentle detergent for fabric protection. Turn shirts inside out before washing to minimize wear on the outer surface, and air-dry them when possible to prevent damage from excessive heat. Proper storage, like hanging on sturdy hangers or neatly folding, helps maintain their shape. By addressing stains immediately and ironing with care, you can ensure your shirts remain crisp, vibrant, and ready to make a statement every time you wear them!</p>
+                    <a href="/blog1">READ MORE</a>
+                </div>
+
+            </div>
+            <div class="blog">
+                <div>
+                    <img src="assets/blog2.jpg" alt="thumbnail for the blog">
+                </div>
+                <div>
+                    <h2>Crafted for Perfection: Premium Quality You Can Trust.</h2>
+                    <p>Our commitment to excellence shines through in every detail. "Crafted for Perfection" isn’t just a tagline—it’s our promise to deliver products that embody superior craftsmanship, durability, and style. Each item is meticulously designed and produced using premium materials to ensure quality you can trust. Whether it’s comfort, functionality, or elegance you seek, our products are built to exceed expectations, making every purchase a choice for lasting value and unmatched refinement.</p>
+                    <a href="/blog2">READ MORE</a>
+                </div>
+
+            </div>
+            <div class="blog">
+                <div>
+                    <img src="assets/blog3.jpg" alt="thumbnail for the blog">
+                </div>
+                <div>
+                    <h2>Meet BaytClothing: Committed to Style, Quality, and You.</h2>
+                    <p>Meet BaytClothing, where style meets substance. We are more than just a brand—we’re a promise to deliver timeless fashion crafted with care and precision. Our commitment lies in curating designs that not only elevate your wardrobe but also reflect the perfect blend of quality, comfort, and individuality. At BaytClothing, you’re at the heart of everything we create, because we believe fashion should empower you to feel confident, stylish, and authentically you. Discover the difference with BaytClothing—crafted for your lifestyle.</p>
+                    <a href="/blog3">READ MORE</a>
+                </div>
+
+            </div>
+        </section>
+        <%- include('./partials/footer.ejs') %>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!-- views/contact.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Bayt Store</title>
+    <link  rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script defer src="https://kit.fontawesome.com/00e77377ee.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="assets/logo.jpeg" type="image/x-icon">
+</head>
+<body>
+    <%- include('./partials/loader.ejs') %>
+
+    <%- include('./partials/header.ejs') %>
+    <div class="contact-container">
+        <form action="/send-message" method="post">
+
+            <div class="input-group">
+                <label for="name">Name</label>
+                <input type="text" name="name" required>
+            </div>
+            <div class="input-group">
+                <label for="phone-number">Phone Numebr</label>
+                <input type="number" name="phoneNumber" required>
+            </div>
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="text" name="email" required>
+            </div>
+            <div class="input-group">
+                <label for="comment">Comment</label>
+                <textarea name="message" id="comment" rows="13"></textarea>
+            </div>
+            <button type="submit">
+                SUBMIT CONTACT
+            </button>
+        </form>
+        <div class="contact-text">
+            <p>PLEASE EXPLAIN IN DETAIL THE ISSUE YOU MAY BE EXPERIENCING AND PROVIDE YOUR EMAIL ADDRESS, ORDER NUMBER AND THE NAME LINKED TO YOUR NAZRR ACCOUNT SO WE MAY ASSIST YOU! PLEASE CONTACT US USING THE FORM AND ALLOW 1-2 BUSINESS DAYS FOR YOUR RESPONSE. WE RECOMMEND ADDING our@email.COM TO YOUR EMAIL CONTACTS OR ALLOW-LIST TO ENSURE THAT YOU ALWAYS GET OUR EMAILS IN YOUR INBOX.</p>
+             <p><i class="fa-solid fa-envelope" style="color: #232323; font-size: 23px;"></i> info@baytclothing.com</p>
+        </div>
+        
+    </div>
+
+    <%- include('./partials/footer.ejs') %>
+    <script src='js/script.js'></script>
+</body>
+</html>

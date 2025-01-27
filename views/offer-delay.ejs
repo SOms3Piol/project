@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="assets/logo.jpeg" type="image/x-icon">
+    <title>Offer Launch</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .heading {
+            font-size: 1.8em;
+            color: black;
+            margin-bottom: 20px;
+        }
+
+        .message {
+            font-size: 1em;
+            margin-bottom: 15px;
+            color: #232323;
+        }
+
+        .subscribe {
+            margin-top: 15px;
+        }
+
+        .subscribe input[type="email"] {
+            padding: 10px;
+            font-size: 1em;
+            width: 80%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .subscribe button {
+            padding: 10px 15px;
+            font-size: 1em;
+            background-color: transparent;
+            color: black;
+            border: 1px solid black;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: ease .3s;
+        }
+
+        .subscribe button:hover {
+            background-color: black;
+            color: white;
+
+        }
+
+        .countdown {
+            font-size: 1.5em;
+            color: #dc3545;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <%- include('./partials/loader.ejs') %>
+
+    <div class="container">
+        <h1 class="heading">Exciting Offers Coming Soon!</h1>
+        <p class="message">We're preparing something amazing for you. Stay tuned for the official launch!</p>
+
+        <p class="message">Subscribe to our newsletter to be the first to know about the latest offers.</p>
+        <p class="message">Don’t forget to check your email to confirm your subscription and ensure you’re all set to receive our latest updates!</p>
+        <form action="/subscribe" method="post" class="subscribe">
+            <input type="email" name="email" id="email" placeholder="Enter your email">
+            <button type="submit">Subscribe</button>
+        </form>
+    </div>
+
+ 
+</body>
+</html>

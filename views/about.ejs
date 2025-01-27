@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link  rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script defer src="https://kit.fontawesome.com/00e77377ee.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="assets/logo.jpeg" type="image/x-icon">
+    <title>About Us | BaytClothing</title>
+
+    <style>
+        .about{
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 1150px;
+            padding: 33px 13px;
+            margin: auto;
+            margin-top: 44px;
+        }
+       .about p{
+            margin-top: 15px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <%- include('./partials/header.ejs') %>
+    <section class="container banner" style="background-image: url('assets/product-banner.jpg');">
+        <div class="shadow"></div>
+        <div class="banner-text">
+            <h2>Why Choose Us?</h2>
+            <p>
+                Our collections feature bold designs and quality craftsmanship, offering a unique fusion of modern street fashion and traditional elements.
+            </p>
+        </div>
+    </section>
+
+
+    <section class="container about">
+        <h1>ABOUT US</h1>
+        <p>Bayt is a streetwear brand that blends urban style with cultural influences to create distinctive clothing and accessories. Our collections feature bold designs and quality craftsmanship, offering a unique fusion of modern street fashion and traditional elements. Whether you're hitting the streets or chilling at home, Bayt brings you versatile pieces that elevate your look and celebrate your roots.
+        </p>
+        <p>
+            We started with a focus on streetwear that speaks to both modern trends and cultural heritage, and we’re just getting started. Soon, we’ll be expanding our collections to include more diverse designs that represent cities, states, countries, and scenic landscapes like mountains, beaches, and deserts, as well as holidays and colleges.
+        </p>    
+        <p>
+            Our goal is to offer creative, high-quality apparel that resonates with your lifestyle, bringing together the best of urban fashion and global influences. Thank you for being part of our journey as we continue to grow and evolve. Welcome to Bayt.</p>
+    </section>
+
+    <%- include('./partials/footer.ejs') %>
+    <script src="js/script.js"></script>
+</body>
+</html>

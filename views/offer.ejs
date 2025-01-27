@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script defer src="https://kit.fontawesome.com/00e77377ee.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="assets/logo.jpeg" type="image/x-icon">
+    <title>Latest Offer | BaytClothing</title>
+
+    <style>
+       
+    </style>
+    
+
+</head>
+<body>
+    <%- include('./partials/loader.ejs') %>
+
+    <%- include('./partials/header.ejs') %>
+
+    <section class=" offer-banner" style="position: relative;">
+        <div class="shadow"></div>
+        <div class="offer-text">
+            <h2>Subscribe to Win a Promotional Code <br> and Redeem Your Discount!</h2>
+            <span id="timer"></span>
+        </div>
+    </section>
+
+    
+    <%- include('./partials/footer.ejs') %>
+
+    <script src="js/script.js"></script>
+    <script>
+// Get the start time passed from the server (in seconds)
+const startTime = <%= consistentTime %>; // This will be set by the server when rendering the pagen
+// Set the initial countdown time (7 days in seconds)
+const initialCountdownTime =  <%= initialCountdownTime %>; // 7 days in seconds
+
+// Function to update the timer
+function updateTimer() {
+    // Get the current time in seconds
+    const currentTime = Math.floor(Date.now() / 1000);
+
+    // Calculate the elapsed time since the start
+    const elapsedTime = currentTime - startTime;
+
+    // Calculate the remaining time (7 days - elapsed time)
+    let remainingTime = initialCountdownTime - elapsedTime;
+
+    if (remainingTime <= 0) {
+        // If the time is up, reset the countdown to 7 days and update the start time on the server
+        remainingTime = initialCountdownTime;
+        // You can update the server start time if needed, but for now it stays the same
+        // You may want to make an API call to reset the start time on the server if desired
+    }
+
+    // Calculate the days, hours, minutes, and seconds
+    let days = Math.floor(remainingTime / (60 * 60 * 24));
+    let hours = Math.floor((remainingTime % (60 * 60 * 24)) / (60 * 60));
+    let minutes = Math.floor((remainingTime % (60 * 60)) / 60);
+    let seconds = remainingTime % 60;
+
+    // Display the timer in the format: Days:Hours:Minutes:Seconds
+    document.getElementById('timer').textContent = 
+        `${days} : ${hours} : ${minutes} : ${seconds}`;
+}
+
+// Call the updateTimer function every second
+setInterval(updateTimer, 1000);
+
+
+    </script>
+
+</body>
+</html>

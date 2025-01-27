@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link  rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script defer src="https://kit.fontawesome.com/00e77377ee.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="assets/logo.jpeg" type="image/x-icon">
+    <title>Home | BaytClothing</title>
+</head>
+<body>
+    <%- include('./partials/loader.ejs') %>
+    <%- include('./partials/header.ejs') %>
+
+    <section class="banner">
+        <div class="banner-text">
+            <h2>EXPRESSIONS OF HERITAGE</h2>
+            <a href="/products"><i class="fa-solid fa-arrow-right"></i> SHOP NOW</a>
+            
+        </div>
+        <div class="shadow"></div>
+    </section>
+        <section class="product-grid" style="padding: 43px 8px; margin: 43px 0;">
+            <% products.forEach((product, index) => { %>
+                <div 
+                    class="product animated-product" 
+                    style="--delay: <%= index * 0.3 %>s;"
+                >
+                    <!-- Product Image -->
+                    <% if (product.images.length > 0) { %>
+                        <a href="/product/<%= product.id %>">
+                            <img src="<%= product.images[0] %>" alt="<%= product.name %>">
+                        </a>
+                    <% } %>
+            
+                    <!-- Product Title -->
+                    <h2><%= product.name %></h2>
+                    <p>Price: $<%= (product.default_price.unit_amount / 100).toFixed(2) %></p>
+            
+                    <!-- Price Menu Section -->
+                    <div class="price-menu">
+                        <!-- "ORDER NOW" Button -->
+                        <span class="button">ORDER NOW</span>
+                        <!-- Prices List -->
+                        <ul class="prices">
+                            <% product.prices.forEach(price => { %>
+                                <li class="price-category">
+                                    <span><%= price.nickname %></span>  
+                                    <button onclick="createSession('<%= price.id %>')">
+                                        <span><%= price.nickname && price.nickname.charAt(0) %></span>
+
+                                        $<%= (price.unit_amount / 100).toFixed(2) %>
+                                    </button>
+                                </li>
+                                
+                            <% }); %>
+                            <% product.prices.forEach(price => { %>
+                                <li class="mbl-category">
+                                    <button onclick="createSession('<%= price.id %>')">
+                                        <span><%= price.nickname && price.nickname.charAt(0) %></span>
+                                        $<%= (price.unit_amount / 100).toFixed(2) %>
+                                    </button>
+                                </li>
+                                
+                            <% }); %>
+                        </ul>
+                    </div>
+                </div>
+            <% }); %>
+            
+        </section>
+
+    <section class="blog-grid">
+        
+        <div class="blog animated-product" 
+        style="--delay: <%= 0 * 0.3 %>s;">
+            <img src="assets/blog1.jpg" alt="Blog about the maintanince">
+            <p>Effortless Shirt Care: Tips to Keep Your Shirts Looking New</p>
+            <a href="/blog1">Read More</a>
+        </div>
+        <div class="blog animated-product" 
+        style="--delay: <%= 1 * 0.3 %>s;">
+            <img src="assets/blog2.jpg" alt="Blog about the Quality">
+            <p>Crafted for Perfection: Premium Quality You Can Trust</p>
+            <a href="/blog2">Read More</a>
+        </div>
+        <div class="blog animated-product" 
+        style="--delay: <%= 2 * 0.3 %>s;">
+            <img src="assets/blog3.jpg" alt="Blog about Us">
+            <p>Meet BaytClothing: Committed to Style, Quality, and You</p>
+            <a href="/blog3">Read More</a>
+        </div>
+
+    </section>
+
+
+    <%- include('./partials/footer.ejs') %>
+
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>
