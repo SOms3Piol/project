@@ -3,6 +3,9 @@ const Stripe = require('stripe');
 const fs = require('fs').promises
 const path = require('path')
 const app = express();
+const dotenv = require('dotenv');
+dotenv.config({ path: './.env' });
+
 const stripe = Stripe('sk_test_51Qf0ZGL1wtw2ceuLxdkSiXr5xwxUUHa9ptxalXiac43JqQDzhD67hORyMXUAZ7NbfUoYpgQcbsEX617Ls0jWufbc00JOvZkv0g'); // Replace with your Stripe secret key
 
 
@@ -87,8 +90,8 @@ app.post('/create-checkout-session', express.json(), async (req, res) => {
                 },
             ],
             mode: 'payment',
-            success_url: 'http://localhost:3000/success',
-            cancel_url: 'http://localhost:3000/failure',
+            success_url: `http://${process.env.DOMAIN}/success`,
+            cancel_url: `http://${process.env.DOMAIN}/failure`,
         });
         
 
@@ -185,8 +188,8 @@ app.get('/product/:id', async (req, res) => {
                 },
             ],
             mode: 'payment',
-            success_url: 'http://localhost:3000/success',
-            cancel_url: 'http://localhost:3000/failure',
+            success_url: `http://${process.env.DOMAIN}/success`,
+            cancel_url: `http://${process.env.DOMAIN}/failure`,
         });
         // Send the session URL to the client
         res.redirect(session.url)
@@ -420,5 +423,5 @@ async function sendSubscriptionEmail(email) {
 
 // Start the server
 app.listen(3000, () => {
-    console.log('Server is running on http://localhost:3000');
+    console.log(`Server is running on ${process.env.DOMAIN}`);
 });
