@@ -29,7 +29,7 @@ app.get('/', async (req, res) => {
 
         // Fetch prices separately
         const prices = await stripe.prices.list();
-
+        console.log(prices)
         // Map prices to their corresponding products
         const productsWithPrices = products.data.map(product => {
             return {
@@ -136,68 +136,7 @@ app.get('/about', async ( req, res)=>{
     res.render('about');
 })
 
-app.get('/product/:id', async (req, res) => {
-    const productId = req.params.id;
 
-    try {
-        // Retrieve the product details from Stripe
-        // const product = await stripe.products.retrieve(productId);
-
-        // Retrieve the price (assuming there’s one price for the product)
-        const prices = await stripe.prices.list({ product: productId, limit: 1 });
-        if (prices.data.length === 0) {
-            return res.status(404).json({ error: 'No prices found for this product' });
-        }
-
-        const priceId = prices.data[0].id;
-
-        // Create a Checkout Session
-        const session = await stripe.checkout.sessions.create({
-            payment_method_types: ['card'], 
-            shipping_address_collection: {
-                allowed_countries: ['US', 'CA'], // Specify allowed countries for shipping
-            },
-            shipping_options: [ // Add shipping rates
-                {
-                    shipping_rate_data: {
-                        type: 'fixed_amount',
-                        fixed_amount: { amount: 500, currency: 'usd' },
-                        display_name: 'Standard shipping',
-                        delivery_estimate: {
-                            minimum: { unit: 'business_day', value: 5 },
-                            maximum: { unit: 'business_day', value: 7 },
-                        },
-                    },
-                },
-                {
-                    shipping_rate_data: {
-                        type: 'fixed_amount',
-                        fixed_amount: { amount: 1000, currency: 'usd' },
-                        display_name: 'Express shipping',
-                        delivery_estimate: {
-                            minimum: { unit: 'business_day', value: 1 },
-                            maximum: { unit: 'business_day', value: 3 },
-                        },
-                    },
-                },
-            ],
-            line_items: [
-                {
-                    price: priceId,
-                    quantity: 1,
-                },
-            ],
-            mode: 'payment',
-            success_url: `http://${process.env.DOMAIN}/success`,
-            cancel_url: `http://${process.env.DOMAIN}/failure`,
-        });
-        // Send the session URL to the client
-        res.redirect(session.url)
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: error.message });
-    }
-});
 
 
 
@@ -222,6 +161,9 @@ app.get('/success',(_,res)=>{
     res.render('success')
 })
 
+
+
+
 app.get('/contact' , ( _ , res ) => {
     res.render('contact')
 })
@@ -239,6 +181,17 @@ app.get('/blog3', ( _ , res ) => {
     res.render('blog3');
 })
 
+
+app.get('/product/:id' , async (req ,res)=>{
+
+    const productId = req.params.id;
+    const products = await stripe.products.list({expand: ['data.default_price'] , limit: 4});
+
+    const product = await stripe.products.retrieve(productId);
+    const prices = await stripe.prices.list({product: productId});
+    
+    res.render('singleproduct' , {products: products.data , product: product, prices: prices.data})
+})
 
 
 

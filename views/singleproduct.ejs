@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link  rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon" href="assets/logo.jpeg" type="image/x-icon">
+    <script defer src="https://kit.fontawesome.com/00e77377ee.js" crossorigin="anonymous"></script>
+    <title> <%= product.name %> | BaytClothing</title>
+
+
+    <style>
+        .single-product{
+            position: relative;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            margin-top: 88px;
+            gap: 33px;
+            padding: 8px 13px;
+            align-items: center;
+            text-transform: uppercase;
+            color: #232323;
+        }
+        .col-2 > div{
+            margin-top: 33px;
+        }
+        .prices{
+            display: flex;
+            justify-content: space-between;
+        
+        }
+        section img{
+            object-fit: cover;
+        }
+        .size-btns{
+            display: flex;
+            gap: 13px;
+            margin-top: 13px;
+        }
+        .size-btns .size-btn{
+            height: 35px;
+            width: 35px;
+            background-color: #f6f6f6;
+            border: solid 1px #232323;
+            outline: none;
+        }
+        .checkout-block{
+            width: 100%;
+            background-color: #5a31f4;
+            padding: 13px 0;
+            text-align: center;
+            margin-top: 13px;
+            
+        }
+       .checkout-block button{
+        background-color: transparent;
+        border: none;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        gap: 8px;
+        font-weight: bolder;
+        }
+        .checkout-block i{
+            font-size: 33px;
+        }
+    </style>
+</head>
+<body>
+    <%- include('./partials/loader.ejs') %>
+    <%- include('./partials/header.ejs') %>
+
+
+    <section class="single-product">
+        <div>
+            <img src="<%= product.images[0] %>" width="650px" height="600px" alt=" <%= product.name %>">
+        </div>
+        <div class="col-2">
+            <div class="prices">
+                <p><%= product.name %></p>
+                <p>$<%= (product.default_price / 100).toFixed(2) %></p>
+            </div>
+            <div>
+                <img height="45px" width="45px" src="<%= product.images[0] %>" alt=" <% product.name %>">
+            </div>
+            <div>
+                <p> <%= product.description %></p>
+            </div>
+            <div>
+                <p>size: <span id="size">s</span></p>
+                <div class="size-btns">
+                    <% prices.forEach(price => { %>
+                        <% if (price.nickname) { %>
+                            <button class="size-btn" id="<%= price.id %>">
+                                <%= price.nickname.charAt(0) %>
+                            </button>
+                        <% } %>
+                    <% }); %>
+                    
+                </div>
+                <div class="checkout-block">
+                    <button id="checkout">SHOP BY <i class="fa-brands fa-stripe"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section >
+       
+        <%- include('./partials/products.ejs') %>
+    </section>
+
+    <%- include('./partials/footer.ejs') %>
+    <script src="/js/script.js"></script>
+    
+</body>
+</html>

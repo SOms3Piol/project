@@ -80,6 +80,7 @@ header nav ul li{
     margin-top: 33px;
     gap: 15px;
     padding: 13px 8px;
+    width: 100%;
 }
 
 
@@ -106,89 +107,12 @@ header nav ul li{
     text-align: center;
     font-size: 14px;
     height: 33px;
+    transition: ease-in-out .1s;
 }
 
-.price-menu{
-    display: flex;
-    flex-direction: column;
-    justify-items: start;
-    height: 33px;
-    overflow: hidden;
-    position: relative;
-    transition: all 0.3s ease-in-out;
-    
-}
-.price-menu .button{
-    transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
-    position: absolute;
-    width: 100%;
-}
-
-.price-menu:hover .button{
-    transform: translateY(-100%); /* Move text up */
-    opacity: 0; /* Fade out text */
-}
-.price-menu:hover .prices{
-    transform: translateY(0);
-    z-index: 2;
-}
-
-
-
-.prices {
-    display: flex;
-    flex-direction: row; /* Align vertically */
-    justify-content: space-between;
-    position: absolute;
-    width: 100%;
-    transition: transform 0.4s ease-in-out;
-    transform: translateY(100%);
-}
-
-.price-category {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden; /* Ensure the button stays within bounds */
-    width: 100px;
-    height: 33px;
-    border: 1px solid black; /* Border for the container */
-    cursor: pointer; /* Indicate interactivity */
-    transition: all 0.3s ease-in-out;
-    
-}
-
-.price-category span {
-    position: absolute;
-    z-index: 1; /* Ensure it stays above the button initially */
-    font-size: 14px;
-    color: black;
-    transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
-}
-
-.price-category button {
-    position: absolute;
-    z-index: 0;
-    width: 100%;
-    height: 100%;
-    background-color: black;
+.product .button:hover{
+    background-color: #232323;
     color: white;
-    border: none;
-    font-size: 14px;
-    transform: translateY(100%); /* Hide button initially below */
-    transition: transform 0.4s ease-in-out;
-}
-
-/* Hover Effect */
-.price-category:hover span {
-    transform: translateY(-100%); /* Move text up */
-    opacity: 0; /* Fade out text */
-}
-
-.price-category:hover button {
-    transform: translateY(0); /* Reveal button */
-    z-index: 2; /* Ensure button is above everything else */
 }
 
 .blog-grid{
@@ -221,6 +145,10 @@ header nav ul li{
     background-color: black;
     color: white;
 
+}
+
+footer{
+    position: relative;
 }
 
 footer .form-sec{

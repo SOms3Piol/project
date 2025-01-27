@@ -1,0 +1,27 @@
+<div class="product-grid" style="margin-bottom: 95px;">
+    <% products.forEach((product, index) => { %>
+        <div 
+            class="product animated-product" 
+            style="--delay: <%= index * 0.3 %>s;"
+        >
+            <!-- Product Image -->
+            <% if (product.images.length > 0) { %>
+                <a href="/product/<%= product.id %>">
+                    <img src="<%= product.images[0] %>" alt="<%= product.name %>">
+                </a>
+                
+            <% } %>
+    
+            <!-- Product Title -->
+            <h2><%= product.name %></h2>
+            <p>Price: $<%= (product.default_price.unit_amount / 100).toFixed(2) %></p>
+            <!-- Price Menu Section -->
+            <div class="price-menu">
+                <!-- "ORDER NOW" Button -->
+                <a href="/product/<%= product.id %>" class="button">ORDER NOW</a>
+        
+            </div> 
+        </div>
+    <% }); %>
+    
+</div>
