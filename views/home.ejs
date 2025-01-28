@@ -36,11 +36,11 @@ ALL IS WELL<!DOCTYPE html>
             text-align: center;
         
         }
-        #close-btn{
+       .model #close-btn{
             width: fit-content;
 
         }
-        .model h2,p{
+        .model h2, .model p{
             margin-top: 8px;
             text-transform: uppercase;
             padding: 13px 8px;
@@ -132,18 +132,23 @@ ALL IS WELL<!DOCTYPE html>
 
     <script src="js/script.js"></script>
     <script>
-        const dialogBtn = document.getElementById('dialog-btn');
+        const dialogBtns = document.querySelectorAll('.notify-btn');
         const Close = document.getElementById('dialog-close-btn');
-        const model = document.getElementById('model')
-        dialogBtn.addEventListener('click' , ()=>{
-            model.classList.add('visible')
-        })
-        Close.addEventListener('click', ()=>{
-            model.classList.remove('visible')
-        })
-
-
+        const model = document.getElementById('model');
+    
+        // Loop through all dialogBtns and add event listener to each one
+        dialogBtns.forEach((btn) => {
+            btn.addEventListener('click', () => {
+                model.classList.add('visible');
+            });
+        });
+    
+        // Close the dialog when the close button is clicked
+        Close.addEventListener('click', () => {
+            model.classList.remove('visible');
+        });
     </script>
+    
 </body>
 
 </html>

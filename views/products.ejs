@@ -95,18 +95,23 @@
     <%- include('./partials/footer.ejs') %>
     <script src="js/script.js"></script>
     <script>
-        const dialogBtn = document.getElementById('dialog-btn');
+        const dialogBtns = document.querySelectorAll('.notify-btn');
         const Close = document.getElementById('dialog-close-btn');
-        const model = document.getElementById('model')
-        dialogBtn.addEventListener('click' , ()=>{
-            model.classList.add('visible')
-        })
-        Close.addEventListener('click', ()=>{
-            model.classList.remove('visible')
-        })
-
-
+        const model = document.getElementById('model');
+    
+        // Loop through all dialogBtns and add event listener to each one
+        dialogBtns.forEach((btn) => {
+            btn.addEventListener('click', () => {
+                model.classList.add('visible');
+            });
+        });
+    
+        // Close the dialog when the close button is clicked
+        Close.addEventListener('click', () => {
+            model.classList.remove('visible');
+        });
     </script>
+    
     
 </body>
 </html>

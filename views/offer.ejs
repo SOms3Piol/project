@@ -37,6 +37,7 @@
     <script>
         // Set the initial countdown time (from server)
         const initialCountdownTime = <%= initial %>; // Read from the server (e.g., 30 seconds)
+        let countdownStartTime = Math.floor(Date.now() / 1000); // Store the current time (seconds)
     
         // Function to update the timer
         function updateTimer() {
@@ -44,11 +45,21 @@
             const currentTime = Math.floor(Date.now() / 1000);
     
             // Calculate the remaining time (initial countdown - time elapsed since page load)
-            const remainingTime = initialCountdownTime - (currentTime % initialCountdownTime);
+            const remainingTime = initialCountdownTime - (currentTime - countdownStartTime);
     
             if (remainingTime <= 0) {
                 // If the countdown expires, reset it
-                remainingTime = initialCountdownTime;
+                // Send AJAX request to inform server to reset the timer (set to 0)
+                fetch('/reset-timer', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ status: 'expired' }),
+                })
+                .then(() => {
+                    window.location.href = '/offer'; // Redirect to offer-delay page
+                });
             }
     
             // Calculate days, hours, minutes, and seconds
@@ -68,6 +79,7 @@
         // Call the function once immediately to initialize the timer
         updateTimer();
     </script>
+    
     
 
 </body>

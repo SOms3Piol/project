@@ -251,6 +251,10 @@ header nav ul li{
     padding: 13px 8px;
     gap: 8px;
 }
+.blog{
+    display:flex;
+    flex-direction: column;
+}
 .blog img{
     width: 100%;
     height: 500px;

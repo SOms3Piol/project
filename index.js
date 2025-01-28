@@ -149,12 +149,22 @@ const middleware = async ( req, res , next) => {
         req.initial = initial;
        return  next();
     }
-    res.render('offer-delay');
+   return res.render('offer-delay');
 }
 
 app.get('/offer' , middleware ,( req ,res)=>{
     res.render('offer' , {consistentTime: countdownStartTime  , initial: req.initial});
 })
+app.post('/reset-timer', async (req, res) => {
+    try {
+        // Reset the timer to 0 in the file
+        await fs.writeFile('offer-timer.txt', '0');
+        res.send('Timer reset');
+    } catch (error) {
+        console.error('Error updating timer file:', error);
+        res.status(500).send('Server error');
+    }
+});
 
 
 
