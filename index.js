@@ -29,7 +29,6 @@ app.get('/', async (req, res) => {
 
         // Fetch prices separately
         const prices = await stripe.prices.list();
-        console.log(prices)
         // Map prices to their corresponding products
         const productsWithPrices = products.data.map(product => {
             return {
@@ -37,7 +36,7 @@ app.get('/', async (req, res) => {
                 prices: prices.data.filter(price => price.product === product.id),
             };
         });
-
+        console.log(productsWithPrices)
         // Render the products with their prices
         res.render('home', { products: productsWithPrices });
     } catch (error) {
@@ -154,7 +153,7 @@ const middleware = async ( req, res , next) => {
 }
 
 app.get('/offer' , middleware ,( req ,res)=>{
-    res.render('offer' , {consistentTime: countdownStartTime  , initialCountdownTime: req.initial});
+    res.render('offer' , {consistentTime: countdownStartTime  , initial: req.initial});
 })
 
 

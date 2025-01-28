@@ -16,10 +16,13 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            background-image: url('assets/offer-banner.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
         }
 
         .container {
-            text-align: center;
+            text-align: left;
             background: #fff;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -42,6 +45,7 @@
 
         .subscribe {
             margin-top: 15px;
+            text-align: center;
         }
 
         .subscribe input[type="email"] {
@@ -86,6 +90,9 @@
 
         <p class="message">Subscribe to our newsletter to be the first to know about the latest offers.</p>
         <p class="message">Don’t forget to check your email to confirm your subscription and ensure you’re all set to receive our latest updates!</p>
+        <div style="text-align: center;">
+            <a href="/" style="color: #232323; text-decoration: underline;">BACK TO HOMEPAGE</a>
+        </div>
         <form action="/subscribe" method="post" class="subscribe">
             <input type="email" name="email" id="email" placeholder="Enter your email">
             <button type="submit">Subscribe</button>

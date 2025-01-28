@@ -1,27 +1,50 @@
 <div class="product-grid" style="margin-bottom: 95px;">
-    <% products.forEach((product, index) => { %>
-        <div 
-            class="product animated-product" 
-            style="--delay: <%= index * 0.3 %>s;"
-        >
+    <% products.forEach(product => { %>
+        <div class="product" style="position: relative;">
+        
             <!-- Product Image -->
             <% if (product.images.length > 0) { %>
-                <a href="/product/<%= product.id %>">
+                <div class="product-img">
                     <img src="<%= product.images[0] %>" alt="<%= product.name %>">
-                </a>
-                
+                    <% if(product.active) { %>
+                        <span class="sold-out">sold out</span>
+                    <% } %>
+                </div>
             <% } %>
     
             <!-- Product Title -->
             <h2><%= product.name %></h2>
-            <p>Price: $<%= (product.default_price.unit_amount / 100).toFixed(2) %></p>
+    
             <!-- Price Menu Section -->
-            <div class="price-menu">
-                <!-- "ORDER NOW" Button -->
-                <a href="/product/<%= product.id %>" class="button">ORDER NOW</a>
-        
-            </div> 
+            <% if (!product.active) { %> <!-- Only show the price menu for active products -->
+                <div class="price-menu">
+                    <!-- "ORDER NOW" Button -->
+                    <span class="button">ORDER NOW</span>
+                    <!-- Prices List -->
+                    <ul class="prices">
+                        <% product.prices.forEach(price => { %>
+                            <li class="price-category">
+                                <span><%= price.nickname %></span>  
+                                <button onclick="createSession('<%= price.id %>')">
+                                    $<%= (price.unit_amount / 100).toFixed(2) %>
+                                </button>
+                            </li>
+                        <% }); %>
+                        <% product.prices.forEach(price => { %>
+                            <li class="mbl-category">  
+                                <button onclick="createSession('<%= price.id %>')">
+                                    <%= price.nickname && price.nickname.charAt(0) %> $<%= (price.unit_amount / 100).toFixed(2) %>
+                                </button>
+                            </li>
+                        <% }); %>
+                    </ul>
+                </div>
+            <% } else { %>
+                <button id="dialog-btn" class="notify-btn">notify me</button>
+            <% } %>
+            
         </div>
     <% }); %>
+    
     
 </div>

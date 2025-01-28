@@ -10,6 +10,67 @@
     <link rel="shortcut icon" href="assets/logo.jpeg" type="image/x-icon">
     <script defer src="https://kit.fontawesome.com/00e77377ee.js" crossorigin="anonymous"></script>
     <title>ALL PRODUCTS | BaytClothing</title>
+    <style>
+        .model{
+            display: none;
+            background-color: rgba(255, 255, 255, 0.493);
+            height: 100vh;
+            width: 100vw;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100000000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .model.visible{
+            display: block;
+        }
+        .model > div{
+            margin: 0 8px;
+            padding: 13px 8px;
+            background-color: white;
+            box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.356);
+            text-align: center;
+        
+        }
+        #close-btn{
+            width: fit-content;
+
+        }
+        .model h2,p{
+            margin-top: 8px;
+            text-transform: uppercase;
+            padding: 13px 8px;
+        }
+        .model form{
+            padding: 0 8px 13px 8px;
+        }
+        .model form input{
+            width: 100%;
+            padding: 13px 8px;
+
+        }
+        .model input , button{
+            display: block;
+            width: 100%;
+            margin-top: 13px;
+        }
+        .model form button{
+            color:white;
+            background-color: #232323;
+            padding: 13px 33px;
+            text-transform: uppercase;
+            border: none;
+            transition: ease .3s;
+            border: 1px solid #232323;
+        }
+        .model button:hover{
+            background-color: transparent;
+            color: black;
+        }
+    </style>
 </head>
 <body>
     <%- include('./partials/loader.ejs') %>
@@ -33,6 +94,19 @@
 
     <%- include('./partials/footer.ejs') %>
     <script src="js/script.js"></script>
+    <script>
+        const dialogBtn = document.getElementById('dialog-btn');
+        const Close = document.getElementById('dialog-close-btn');
+        const model = document.getElementById('model')
+        dialogBtn.addEventListener('click' , ()=>{
+            model.classList.add('visible')
+        })
+        Close.addEventListener('click', ()=>{
+            model.classList.remove('visible')
+        })
+
+
+    </script>
     
 </body>
 </html>

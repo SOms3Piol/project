@@ -83,6 +83,50 @@ header nav ul li{
     width: 100%;
 }
 
+.product-img{
+    position: relative;
+}
+.product-img .sold-out{
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 14px;
+    border-radius: 5px;
+    padding: 3px 8px;
+    margin-right:8px;
+    color: #232323;
+    border: solid 1px #232323;
+}
+.notify-btn {
+    width: 100%;
+    border: 1px solid #232323;
+    height: 33px;
+    text-transform: uppercase;
+    text-align: center;
+    background-color: transparent;
+    position: relative;
+    transition: color 0.6s ease-in-out;
+    overflow: hidden; /* Ensure the pseudo-element stays inside the button */
+}
+
+.notify-btn::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%; /* Initially set width to 0 */
+    height: 100%;
+    background-color: black;
+    z-index: -1;
+    transition: width 0.5s ease-in-out;
+}
+
+.notify-btn:hover::after {
+    width: 100%; /* On hover, set the width to 100% */
+}
+.notify-btn:hover {
+    color: white;
+}
 
 .product img{
     width: 100%;
@@ -94,7 +138,7 @@ header nav ul li{
     font-size: small;
     font-weight: 300;
 }
-.product .button{
+/* ..product .button {
     color: black;
     background-color: transparent;
     border: solid 1px black;
@@ -103,17 +147,103 @@ header nav ul li{
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    transition: ease-in .5s;
+    transition: ease-in 0.5s;
     text-align: center;
     font-size: 14px;
     height: 33px;
-    transition: ease-in-out .1s;
+    width: 100%;
+} */
+
+.price-menu {
+    height: 33px;
+    position: relative;
+    overflow: hidden; /* Ensures hidden overflow for smooth animation */
 }
 
-.product .button:hover{
-    background-color: #232323;
-    color: white;
+.prices {
+    display: flex;
+    flex-direction: row; /* Row of price categories */
+    position: absolute;
+    top: 100%; /* Initially hidden below the menu */
+    left: 0;
+    width: 100%;
+    transition: transform 0.4s ease-in-out; /* Smooth animation for sliding up */
 }
+
+.price-category {
+    display: flex;
+    flex-direction: column; /* Stack the nickname and button vertically */
+    align-items: center;
+    justify-content: center;
+    flex: 1; /* Ensure equal width for each price category */
+    position: relative;
+    overflow: hidden; /* Ensure clean animations */
+    height: 33px; /* Height of each category */
+    border: 1px solid black; /* Optional: Adds a border around each category */
+}
+
+.price-category span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    background-color: white;
+    z-index: 1; /* Ensure span is above the button initially */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
+}
+
+.price-category button {
+    position: absolute;
+    top: 100%; /* Start below the container */
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    color: white;
+    border: none;
+    text-align: center;
+    cursor: pointer;
+    transform: translateY(0); /* Keep hidden initially */
+    transition: transform 0.4s ease-in-out;
+    z-index: 2; /* Ensure button appears above */
+}
+
+.button {
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: #232323;
+    border: 1px solid #232323;
+    text-align: center;
+    line-height: 33px;
+    cursor: pointer;
+    transition: transform 0.4s ease-in-out;
+
+}
+
+/* Hover Effects */
+.price-menu:hover .button {
+    transform: translateY(-100%); /* Slide the "ORDER NOW" button up */
+}
+
+.price-menu:hover .prices {
+    transform: translateY(-100%); /* Slide up the price row */
+}
+
+.price-category:hover span {
+    transform: translateY(-100%); /* Slide up the span text */
+    opacity: 0; /* Fade out the span text */
+}
+
+.price-category:hover button {
+    transform: translateY(-100%); /* Slide up the button */
+}
+
 
 .blog-grid{
     display: grid;
@@ -186,7 +316,7 @@ footer form button{
 .footer-grid{
     max-width: 1050px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     align-items: start;
     margin: auto;
     padding: 33px 0;
@@ -210,7 +340,9 @@ footer form button{
 }
 
 .copyright{
-    text-align: left;
+    text-align: center;
+    margin-top: 33px;
+    width: 100%;
 }
 
 
@@ -375,13 +507,18 @@ input[type=number] {
         padding: 8px 13px;
         flex-grow: 1;
      }
-
+     .product-grid{
+        grid-template-columns: 1fr 1fr;
+    }
 
 
 
  }
 
 
+ .mbl-footer{
+    display: none;
+ }
 
 
 /* Responsive styling */
@@ -469,6 +606,60 @@ input[type=number] {
         padding: 13px 0;
         margin-top: 3px;
     }
+    .contact-container{
+        grid-template-columns: 1fr;
+    }
+    .footer-grid{
+        display: none;
+    }
+    .mbl-footer{
+        display: block;
+        padding: 33px 8px;
+        text-transform: uppercase;
+    }
+    .mbl-footer div {
+        height: 33px;
+        overflow: hidden;
+        transition: height 0.3s ease-in-out; /* Add transition for smooth animation */
+    }
+    
+    .mbl-footer button {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        text-transform: uppercase;
+        background-color: transparent;
+        border: none;
+        height: 33px;
+        align-items: center;
+        cursor: pointer;
+    }
+    
+    .mbl-footer ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    
+    .mbl-footer ul li {
+        padding: 5px 0;
+    }
+    
+    .mbl-footer ul li a {
+        color: #232323;
+        font-size: 10px;
+        text-decoration: none;
+    }
+    
+    /* Use :focus to expand the menu */
+    .mbl-footer button:focus + ul {
+        height: auto; /* Allow content to determine height */
+    }
+    
+    .mbl-footer div:focus-within {
+        height: 200px; /* Set this to the height of the expanded menu */
+    }
+    
 }
 
 @media screen and (max-width: 430px) {

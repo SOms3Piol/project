@@ -10,9 +10,13 @@
 /* Apply Montserrat font globally */
 body {
     font-family: 'Montserrat', sans-serif;
-    background-color: #f4f4f4;
+    background-image: url('/assets/2354.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+
     color: #333;
     text-align: center;
+
     padding: 20px;
 }
 
@@ -29,7 +33,7 @@ body {
 /* Heading styling */
 h1 {
     font-size: 2.5em;
-    color: #28a745;
+    color: #232323;
     margin-bottom: 20px;
 }
 
@@ -42,7 +46,7 @@ h1 {
 
 /* Contact link styling */
 a {
-    color: #007bff;
+    color: #232323;
     text-decoration: none;
 }
 
@@ -52,8 +56,9 @@ a:hover {
 
 /* Button to navigate back to homepage */
 .btn {
-    background-color: #28a745;
-    color: #fff;
+    background-color: transparent;
+    color: #232323;
+    border: solid 1px #232323;
     padding: 15px 30px;
     font-size: 1.1em;
     border-radius: 5px;
@@ -65,7 +70,8 @@ a:hover {
 
 /* Button hover effect */
 .btn:hover {
-    background-color: #218838;
+    background-color: #232323;
+    color: white;
 }
 
 /* Responsive styling */

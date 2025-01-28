@@ -10,6 +10,69 @@ ALL IS WELL<!DOCTYPE html>
     <script defer src="https://kit.fontawesome.com/00e77377ee.js" crossorigin="anonymous"></script>
     <link rel="shortcut icon" href="assets/logo.jpeg" type="image/x-icon">
     <title>Home | BaytClothing</title>
+
+
+    <style>
+        .model{
+            background-color: rgba(255, 255, 255, 0.493);
+            height: 100vh;
+            width: 100vw;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100000000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+        .visible{
+            display: flex;
+        }
+        .model > div{
+            margin: 0 8px;
+            padding: 13px 8px;
+            background-color: white;
+            box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.356);
+            text-align: center;
+        
+        }
+        #close-btn{
+            width: fit-content;
+
+        }
+        .model h2,p{
+            margin-top: 8px;
+            text-transform: uppercase;
+            padding: 13px 8px;
+        }
+        .model form{
+            padding: 0 8px 13px 8px;
+        }
+        .model form input{
+            width: 100%;
+            padding: 13px 8px;
+
+        }
+        .model input , .model button{
+            display: block;
+            width: 100%;
+            margin-top: 13px;
+        }
+        .model form button{
+            color:white;
+            background-color: #232323;
+            padding: 13px 33px;
+            text-transform: uppercase;
+            border: none;
+            transition: ease .3s;
+            border: 1px solid #232323;
+        }
+        .model button:hover{
+            background-color: transparent;
+            color: black;
+        }
+    </style>
+
 </head>
 <body>
     <%- include('./partials/loader.ejs') %>
@@ -23,7 +86,9 @@ ALL IS WELL<!DOCTYPE html>
         </div>
         <div class="shadow"></div>
     </section>
-     <%- include('./partials/products.ejs') %>
+     <section>
+        <%- include('./partials/products.ejs') %>
+     </section>
 
     <section class="blog-grid">
         
@@ -48,11 +113,37 @@ ALL IS WELL<!DOCTYPE html>
 
     </section>
 
+    <div id="model" class="model">
+        <div>
+            <div style="position: relative; width: 100%;  ">
+                <button id="dialog-close-btn" style="text-align: right; background-color: transparent; border: none; font-size: 20px; padding: 8px 13px;"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <h2>BACK IN STOCK NOTIFICATION</h2>
+            <p>size out of stock? enter your email to get notified when product is back in stock</p>
+            <form action="/subscribe">
+                <input type="email" name="email" id="email" required placeholder="EMAIL">
+                <button type="submit">subscribe</button>
+            </form>
+        </div>
+    </div>
 
     <%- include('./partials/footer.ejs') %>
 
 
     <script src="js/script.js"></script>
+    <script>
+        const dialogBtn = document.getElementById('dialog-btn');
+        const Close = document.getElementById('dialog-close-btn');
+        const model = document.getElementById('model')
+        dialogBtn.addEventListener('click' , ()=>{
+            model.classList.add('visible')
+        })
+        Close.addEventListener('click', ()=>{
+            model.classList.remove('visible')
+        })
+
+
+    </script>
 </body>
 
 </html>
