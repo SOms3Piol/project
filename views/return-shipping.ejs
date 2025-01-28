@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="assets/logo.jpeg" type="image/x-icon">
+    <link rel="stylesheet" href="css/style.css">
+    <title><%= title %></title>
+    <style>
+        section{
+            margin: 150px 0;
+            padding: 33px 8px;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            gap: 23px;
+            color: #232323;
+        }
+    </style>
+</head>
+<body>
+    <%- include('./partials/header.ejs') %>
+
+    <section>
+        <h2>SHIPPING</h2>
+        
+        <p>THIS ITEM SHIPS IN 5-7 BUSINESS DAYS IN THE US. ALL PACKAGES ARE TRACKABLE. AN EMAIL CONTAINING THE TRACKING NUMBER WILL BE SENT TO YOU WHEN THE ORDER SHIPS.</p>
+        
+        <p>ALL DOMESTIC ORDERS ARE SHIPPED VIA USPS & ALL INTERNATIONAL ORDERS ARE SHIPPED VIA DHL. INTERNATIONAL ORDERS MAY TAKE LONGER.</p>
+        
+        <p>FREE USA SHIPPING ON ORDERS $99+</p>
+        
+       <p> ALL SALES ARE FINAL AFTER 24 HOURS. NO CANCELLATIONS AFTER 24 HOURS. NO RETURNS OR SIZE EXCHANGES DUE TO NATURE OF GARMENTS & PRINT.</p>
+        
+        <p>THANK YOU. PLEASE REACH OUT TO INFO@NAZRRCO.COM FOR FURTHER INFORMATION OR IF DAMAGED. SOMEONE WILL RESPOND ACCORDINGLY. PLEASE INCLUDE YOUR FULL NAME, EMAIL AND ORDER NUMBER. THANK YOU.</p>
+    </section>
+
+    <%- include('./partials/footer.ejs') %>
+</body>
+</html>

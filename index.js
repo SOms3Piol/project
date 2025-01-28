@@ -10,13 +10,13 @@ const stripe = Stripe('sk_test_51Qf0ZGL1wtw2ceuLxdkSiXr5xwxUUHa9ptxalXiac43JqQDz
 
 
 const nodemailer = require('nodemailer');
+const { title } = require('process');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.set('view engine' , 'ejs');
 app.set('views' , './views');
-
 app.use(express.static('public'));
 
 
@@ -157,29 +157,6 @@ app.get('/offer' , middleware ,( req ,res)=>{
     res.render('offer' , {consistentTime: countdownStartTime  , initialCountdownTime: req.initial});
 })
 
-app.get('/success',(_,res)=>{
-    res.render('success')
-})
-
-
-
-
-app.get('/contact' , ( _ , res ) => {
-    res.render('contact')
-})
-app.get('/blogs' , ( _ , res) => {
-    res.render('blogs')
-})
-app.get('/blog1', ( _ , res ) => {
-    res.render('blog-maint');
-})
-
-app.get('/blog2', ( _ , res ) => {
-    res.render('blog2');
-})
-app.get('/blog3', ( _ , res ) => {
-    res.render('blog3');
-})
 
 
 app.get('/product/:id' , async (req ,res)=>{
@@ -373,6 +350,40 @@ async function sendSubscriptionEmail(email) {
 
 
 
+app.get('/success',(_,res)=>{
+    res.render('success')
+})
+
+
+
+
+app.get('/contact' , ( _ , res ) => {
+    res.render('contact')
+})
+app.get('/blogs' , ( _ , res) => {
+    res.render('blogs')
+})
+app.get('/blog1', ( _ , res ) => {
+    res.render('blog-maint');
+})
+
+app.get('/blog2', ( _ , res ) => {
+    res.render('blog2');
+})
+app.get('/blog3', ( _ , res ) => {
+    res.render('blog3');
+})
+
+app.get('/faq' , (req, res)=>{
+    res.render('faq' , {title: "FAQS"});
+})
+
+app.get('/shipping' , ( _  ,res)=>{
+    res.render('faq' , {title: "SHIPPING"})
+})
+app.get('/returns' , ( req , res ) => {
+    res.render('return-shipping' , {title: "RETURN AND SHIPPING"})
+})
 
 // Start the server
 app.listen(3000, () => {
