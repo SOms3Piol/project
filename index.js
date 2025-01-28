@@ -36,7 +36,7 @@ app.get('/', async (req, res) => {
                 prices: prices.data.filter(price => price.product === product.id),
             };
         });
-        console.log(productsWithPrices)
+        
         // Render the products with their prices
         res.render('home', { products: productsWithPrices });
     } catch (error) {
