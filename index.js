@@ -89,8 +89,8 @@ app.post('/create-checkout-session', express.json(), async (req, res) => {
                 },
             ],
             mode: 'payment',
-            success_url: `http://${process.env.DOMAIN}/success`,
-            cancel_url: `http://${process.env.DOMAIN}/failure`,
+            success_url: `${process.env.DOMAIN}/success`,
+            cancel_url: `${process.env.DOMAIN}/failure`,
         });
         
 
