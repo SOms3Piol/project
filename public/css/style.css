@@ -107,6 +107,7 @@ header nav ul li{
     position: relative;
     transition: color 0.6s ease-in-out;
     overflow: hidden; /* Ensure the pseudo-element stays inside the button */
+    margin-top: 8px;
 }
 
 .notify-btn::after {
@@ -128,6 +129,7 @@ header nav ul li{
     color: white;
 }
 
+
 .product img{
     width: 100%;
     height: 100%;
@@ -137,6 +139,7 @@ header nav ul li{
 .product h2,p{
     font-size: small;
     font-weight: 300;
+    margin-top: 8px;
 }
 /* ..product .button {
     color: black;
@@ -158,6 +161,7 @@ header nav ul li{
     height: 33px;
     position: relative;
     overflow: hidden; /* Ensures hidden overflow for smooth animation */
+    margin-top: 8px;
 }
 
 .prices {
@@ -251,7 +255,7 @@ header nav ul li{
     padding: 13px 8px;
     gap: 8px;
 }
-.blog{
+.blog-grid .blog{
     display:flex;
     flex-direction: column;
 }
