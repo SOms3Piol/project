@@ -469,6 +469,17 @@ app.get('/shipping' , ( _  ,res)=>{
 app.get('/returns' , ( req , res ) => {
     res.render('return-shipping' , {title: "RETURN AND SHIPPING"})
 })
+app.get('/terms' , ( req, res) => {
+    res.render('tos' , 
+        {
+            title: "TERMS OF SERVICES | BAYTCLOTHING"
+        }
+    )
+})
+
+app.get('/privacy' , (req, res) => {
+    res.render('privacy' , { title: "PRIVACY | BAYTCLOTHING"})
+})
 
 // Start the server
 app.listen(3000, () => {
