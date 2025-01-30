@@ -6,7 +6,7 @@
             <% if (product.images.length > 0) { %>
                 <div class="product-img">
                     <img src="<%= product.images[0] %>" alt="<%= product.name %>">
-                    <% if(product.active) { %>
+                    <% if(!product.active) { %>
                         <span class="sold-out">sold out</span>
                     <% } %>
                 </div>
@@ -16,7 +16,7 @@
             <h2><%= product.name %></h2>
     
             <!-- Price Menu Section -->
-            <% if (!product.active) { %> <!-- Only show the price menu for active products -->
+            <% if (product.active) { %> <!-- Only show the price menu for active products -->
                 <div class="price-menu">
                     <!-- "ORDER NOW" Button -->
                     <span class="button">ORDER NOW</span>
@@ -40,7 +40,16 @@
                     </ul>
                 </div>
             <% } else { %>
-                <button id="dialog-btn" class="notify-btn">notify me</button>
+                <button 
+    class="notify-btn" 
+    data-price="<%= product.default_price.unit_amount ?  (product.default_price.unit_amount / 100).toFixed(2) : 'Price not available' %>"
+    data-name="<%= product.name %>" 
+    data-description="<%= product.description && product.description.trim() !== '' ? product.description : 'No description available' %>" 
+    data-image="<%= product.images && product.images.length > 0 ? product.images[0] : 'https://via.placeholder.com/150' %>">
+    Notify Me
+                </button>
+
+
             <% } %>
             
         </div>

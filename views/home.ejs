@@ -45,10 +45,10 @@ ALL IS WELL<!DOCTYPE html>
             text-transform: uppercase;
             padding: 13px 8px;
         }
-        .model form{
+        .model section{
             padding: 0 8px 13px 8px;
         }
-        .model form input{
+        .model section input{
             width: 100%;
             padding: 13px 8px;
 
@@ -58,7 +58,7 @@ ALL IS WELL<!DOCTYPE html>
             width: 100%;
             margin-top: 13px;
         }
-        .model form button{
+        .model section button{
             color:white;
             background-color: #232323;
             padding: 13px 33px;
@@ -120,10 +120,10 @@ ALL IS WELL<!DOCTYPE html>
             </div>
             <h2>BACK IN STOCK NOTIFICATION</h2>
             <p>size out of stock? enter your email to get notified when product is back in stock</p>
-            <form action="/subscribe">
+            <section>
                 <input type="email" name="email" id="email" required placeholder="EMAIL">
-                <button type="submit">subscribe</button>
-            </form>
+                <button id="notify-me">subscribe</button>
+            </section>
         </div>
     </div>
 
@@ -133,21 +133,52 @@ ALL IS WELL<!DOCTYPE html>
     <script src="js/script.js"></script>
     <script>
         const dialogBtns = document.querySelectorAll('.notify-btn');
-        const Close = document.getElementById('dialog-close-btn');
+        const notify_btn = document.getElementById('notify-me')
+        const email = document.getElementById('email')
+        const closeBtn = document.getElementById('dialog-close-btn');
         const model = document.getElementById('model');
     
-        // Loop through all dialogBtns and add event listener to each one
+        let selectedProduct = {}; // To store product details
+    
+        // Loop through all "Notify Me" buttons and add event listener
         dialogBtns.forEach((btn) => {
-            btn.addEventListener('click', () => {
-                model.classList.add('visible');
+            btn.addEventListener('click', (event) => {
+                // Extract product details from the clicked button
+                selectedProduct = {
+                    price: event.target.getAttribute('data-price'),
+                    name: event.target.getAttribute('data-name'),
+                    description: event.target.getAttribute('data-description'),
+                    image: event.target.getAttribute('data-image')
+                };    
+                model.classList.add('visible'); // Show modal
             });
         });
     
         // Close the dialog when the close button is clicked
-        Close.addEventListener('click', () => {
+        closeBtn.addEventListener('click', () => {
             model.classList.remove('visible');
         });
+        
+        notify_btn.addEventListener('click' , async () => {
+           await fetch('/notify-me' , {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json' // Fix missing headers
+                },
+                body: JSON.stringify({
+                    userEmail: email.value,
+                    price: selectedProduct.price,
+                    name: selectedProduct.name,
+                    description: selectedProduct.description,
+                    image: selectedProduct.image
+                })
+            }).then(()=>{
+                window.location.href = '/succes-email'
+            })
+        })
+    
     </script>
+    
     
 </body>
 

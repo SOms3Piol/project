@@ -12,7 +12,6 @@
     <title>ALL PRODUCTS | BaytClothing</title>
     <style>
         .model{
-            display: none;
             background-color: rgba(255, 255, 255, 0.493);
             height: 100vh;
             width: 100vw;
@@ -20,12 +19,12 @@
             top: 0;
             left: 0;
             z-index: 100000000;
-            display: flex;
+            display: none;
             justify-content: center;
             align-items: center;
         }
-        .model.visible{
-            display: block;
+        .visible{
+            display: flex;
         }
         .model > div{
             margin: 0 8px;
@@ -35,29 +34,29 @@
             text-align: center;
         
         }
-        #close-btn{
+       .model #close-btn{
             width: fit-content;
 
         }
-        .model h2,p{
+        .model h2, .model p{
             margin-top: 8px;
             text-transform: uppercase;
             padding: 13px 8px;
         }
-        .model form{
+        .model section{
             padding: 0 8px 13px 8px;
         }
-        .model form input{
+        .model section input{
             width: 100%;
             padding: 13px 8px;
 
         }
-        .model input , button{
+        .model input , .model button{
             display: block;
             width: 100%;
             margin-top: 13px;
         }
-        .model form button{
+        .model section button{
             color:white;
             background-color: #232323;
             padding: 13px 33px;
@@ -92,24 +91,70 @@
         <%- include('./partials/products.ejs') %>
     </section>
 
+    <div id="model" class="model">
+        <div>
+            <div style="position: relative; width: 100%;  ">
+                <button id="dialog-close-btn" style="text-align: right; background-color: transparent; border: none; font-size: 20px; padding: 8px 13px;"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <h2>BACK IN STOCK NOTIFICATION</h2>
+            <p>size out of stock? enter your email to get notified when product is back in stock</p>
+            <section >
+                <input type="email" name="email" id="notify-email" required placeholder="EMAIL">
+                <button  id="notify-me">NOTIFY ME</button>
+            </section>
+        </div>
+    </div>
+
     <%- include('./partials/footer.ejs') %>
+
+
     <script src="js/script.js"></script>
     <script>
         const dialogBtns = document.querySelectorAll('.notify-btn');
-        const Close = document.getElementById('dialog-close-btn');
+        const notify_btn = document.getElementById('notify-me')
+        const email = document.getElementById('email')
+        const closeBtn = document.getElementById('dialog-close-btn');
         const model = document.getElementById('model');
     
-        // Loop through all dialogBtns and add event listener to each one
+        let selectedProduct = {}; // To store product details
+    
+        // Loop through all "Notify Me" buttons and add event listener
         dialogBtns.forEach((btn) => {
-            btn.addEventListener('click', () => {
-                model.classList.add('visible');
+            btn.addEventListener('click', (event) => {
+                // Extract product details from the clicked button
+                selectedProduct = {
+                    price: event.target.getAttribute('data-price'),
+                    name: event.target.getAttribute('data-name'),
+                    description: event.target.getAttribute('data-description'),
+                    image: event.target.getAttribute('data-image')
+                };    
+                model.classList.add('visible'); // Show modal
             });
         });
     
         // Close the dialog when the close button is clicked
-        Close.addEventListener('click', () => {
+        closeBtn.addEventListener('click', () => {
             model.classList.remove('visible');
         });
+        
+        notify_btn.addEventListener('click' , async () => {
+           await fetch('/notify-me' , {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json' // Fix missing headers
+                },
+                body: JSON.stringify({
+                    userEmail: email.value,
+                    price: selectedProduct.price,
+                    name: selectedProduct.name,
+                    description: selectedProduct.description,
+                    image: selectedProduct.image
+                })
+            }).then(()=>{
+                window.location.href = '/succes-email'
+            })
+        })
+    
     </script>
     
     

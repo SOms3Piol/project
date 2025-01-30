@@ -10,7 +10,6 @@ const stripe = Stripe('sk_test_51Qf0ZGL1wtw2ceuLxdkSiXr5xwxUUHa9ptxalXiac43JqQDz
 
 
 const nodemailer = require('nodemailer');
-const { title } = require('process');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -26,7 +25,6 @@ app.get('/', async (req, res) => {
     try {
         // Fetch products
         const products = await stripe.products.list( { limit: 4 , expand: ['data.default_price'], });
-
         // Fetch prices separately
         const prices = await stripe.prices.list();
         // Map prices to their corresponding products
@@ -330,13 +328,13 @@ app.post('/subscribe', async (req, res) => {
 
 // Function to send confirmation email
 async function sendSubscriptionEmail(email) {
-    const transporter = nodemailer.createTransport({
-        service: 'gmail', // Use Gmail's SMTP server
-        auth: {
-            user: 'info@baytclothing.com', // Replace with your email
-            pass: 'pyklspsuwlwjhqar '  // Use app-specific password
-        },
-    });
+    // const transporter = nodemailer.createTransport({
+    //     service: 'gmail', // Use Gmail's SMTP server
+    //     auth: {
+    //         user: 'info@baytclothing.com', // Replace with your email
+    //         pass: 'pyklspsuwlwjhqar '  // Use app-specific password
+    //     },
+    // });
 
     const mailOptions = {
         from: '"Bayt Offers" <info@baytclothing.com>', // Sender info
@@ -356,6 +354,84 @@ async function sendSubscriptionEmail(email) {
     // Send the email
     return transporter.sendMail(mailOptions);
 }
+
+
+
+// Notify-Me Endpoint
+app.post('/notify-me', async (req, res) => {
+    try {
+        const { userEmail, price, name, description, image } = req.body
+        // Email HTML Content
+        const emailHTML = `
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <title>Product Back in Stock Notification</title>
+                <style>
+                    body { font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; }
+                    .container { max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
+                    .header { text-align: center; font-size: 24px; font-weight: bold; color: #333; margin-bottom: 20px; }
+                    .product-info { display: flex; align-items: center; gap: 20px; }
+                    .product-img { width: 120px; height: 120px; object-fit: cover; border-radius: 6px; }
+                    .details { flex-grow: 1; }
+                    .title-price { display: flex; justify-content: space-between; align-items: center; }
+                    .product-title { font-size: 20px; font-weight: bold; color: #444; }
+                    .price { font-size: 18px; font-weight: bold; color: #28a745; }
+                    .description { margin-top: 10px; font-size: 14px; color: #555; line-height: 1.6; }
+                    .footer { margin-top: 20px; font-size: 12px; text-align: center; color: #888; }
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <div class="header">BaytClothing</div>
+                    <p>I want to be notified about this product when it is in stock.</p>
+                    
+                    <!-- Product Section -->
+                    <div class="product-info">
+                        <img src="${image}" alt="Product Image" class="product-img">
+                        <div class="details">
+                            <div class="title-price">
+                                <span class="product-title">${name}</span>
+                                <span class="price">${price}</span>
+                            </div>
+                            <p class="description">${description}</p>
+                        </div>
+                    </div>
+
+                    <div class="footer">
+                        <p>Notification will be sent to: <strong>${userEmail}</strong></p>
+                        <p>If you did not request this notification, please ignore this email.</p>
+                    </div>
+                </div>
+            </body>
+            </html>
+        `;
+
+        // Email Options
+        const mailOptions = {
+            from: userEmail,
+            to: 'info@baytclothing.com',
+            subject: 'I want to be notified about this product when it is in stock',
+            html: emailHTML
+        };
+
+        // Send Email
+        await transporter.sendMail(mailOptions);
+        res.status(200).json({ message: 'Notification email sent successfully!' });
+
+    } catch (error) {
+        console.error('Error sending email:', error);
+        res.status(500).json({ message: 'Failed to send email' });
+    }
+});
+
+
+
+
+
+
+
 
 
 
