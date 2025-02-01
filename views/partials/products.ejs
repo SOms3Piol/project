@@ -5,7 +5,20 @@
             <!-- Product Image -->
             <% if (product.images.length > 0) { %>
                 <div class="product-img">
-                    <img src="<%= product.images[0] %>" alt="<%= product.name %>">
+                    <% if(product.active) { %>
+                        <a href="/product/<%= product.id %>">
+                            <img src="<%= product.images[0] %>" alt="<%= product.name %>">
+                        </a>
+                    <% } else { %>
+                        <img src="<%= product.images[0] %>" alt="<%= product.name %>">
+                  
+                    <% } %>
+                    <% if(product.active && product.is_new) { %>
+                        <span class="sold-out">new</span>
+                    <% } %>
+                    <% if(product.active && product.is_best_selling) { %>
+                        <span class="sold-out">best selling</span>
+                    <% } %>
                     <% if(!product.active) { %>
                         <span class="sold-out">sold out</span>
                     <% } %>

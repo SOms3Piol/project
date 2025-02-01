@@ -28,10 +28,30 @@ app.get('/', async (req, res) => {
         // Fetch prices separately
         const prices = await stripe.prices.list();
         // Map prices to their corresponding products
+
         const productsWithPrices = products.data.map(product => {
             return {
-                ...product,
-                prices: prices.data.filter(price => price.product === product.id),
+                    id: product.id,
+                    name: product.name,
+                    default_price: {
+                        unit_amount: product.default_price.unit_amount,
+                    },
+                    description: product.description,
+                    is_new: product.metadata.is_new,
+                    is_best_selling: product.metadata.is_best_selling,
+                    active: product.active,
+                    images: [
+                        product.images[0]  // Assuming the first image is sufficient
+                    ],
+                    is_new: product.metadata.is_new ? true : false,
+                    is_best_selling: product.metadata.is_best_selling ? true : false,
+                    prices: prices.data
+                    .filter(price => price.product === product.id)  // Filter prices by product
+                    .map(price => ({
+                        unit_amount: price.unit_amount,  // Only include unit_amount
+                        nickname: price.nickname,        // Only include nickname
+                        id: price.id                     // Only include id
+                    })),
             };
         });
         
@@ -113,8 +133,27 @@ app.get('/products', async (req, res) => {
         // Map prices to their corresponding products
         const productsWithPrices = products.data.map(product => {
             return {
-                ...product,
-                prices: prices.data.filter(price => price.product === product.id),
+                    id: product.id,
+                    name: product.name,
+                    default_price: {
+                        unit_amount: product.default_price.unit_amount,
+                    },
+                    description: product.description,
+                    is_new: product.metadata.is_new,
+                    is_best_selling: product.metadata.is_best_selling,
+                    active: product.active,
+                    images: [
+                        product.images[0]  // Assuming the first image is sufficient
+                    ],
+                    is_new: product.metadata.is_new ? true : false,
+                    is_best_selling: product.metadata.is_best_selling ? true : false,
+                    prices: prices.data
+                    .filter(price => price.product === product.id)  // Filter prices by product
+                    .map(price => ({
+                        unit_amount: price.unit_amount,  // Only include unit_amount
+                        nickname: price.nickname,        // Only include nickname
+                        id: price.id                     // Only include id
+                    })),
             };
         });
 
@@ -138,6 +177,7 @@ app.get('/about', async ( req, res)=>{
 
 
 
+
 let countdownStartTime = Math.floor(Date.now() / 1000); // Store the current time (seconds)
 
 const middleware = async ( req, res , next) => {
@@ -153,6 +193,7 @@ const middleware = async ( req, res , next) => {
 app.get('/offer' , middleware ,( req ,res)=>{
     res.render('offer' , {consistentTime: countdownStartTime  , initial: req.initial});
 })
+
 app.post('/reset-timer', async (req, res) => {
     try {
         // Reset the timer to 0 in the file
@@ -171,10 +212,54 @@ app.get('/product/:id' , async (req ,res)=>{
     const productId = req.params.id;
     const products = await stripe.products.list({expand: ['data.default_price'] , limit: 4});
 
-    const product = await stripe.products.retrieve(productId);
+    const product = await stripe.products.retrieve(productId );
+
     const prices = await stripe.prices.list({product: productId});
+
+    const clientProduct = {
+        id: product.id,
+        name: product.name,
+        description: product.description,
+        images: [
+            product.images[0]
+        ],
+        default_price:prices.data.filter(price => price.id === product.default_price).map(p => p.unit_amount),
+        prices: prices.data.map(price=>{
+            return{
+                id: price.id,
+                nickname: price.nickname,
+                unit_amount: price.unit_amount
+            }
+        })
+    }
+    const productsWithPrices = products.data.map(product => {
+        return {
+                id: product.id,
+                name: product.name,
+                default_price: {
+                    unit_amount: product.default_price.unit_amount,
+                },
+                description: product.description,
+                is_new: product.metadata.is_new,
+                is_best_selling: product.metadata.is_best_selling,
+                active: product.active,
+                images: [
+                    product.images[0]  // Assuming the first image is sufficient
+                ],
+                is_new: product.metadata.is_new ? true : false,
+                is_best_selling: product.metadata.is_best_selling ? true : false,
+                prices: prices.data
+                .filter(price => price.product === product.id)  // Filter prices by product
+                .map(price => ({
+                    unit_amount: price.unit_amount,  // Only include unit_amount
+                    nickname: price.nickname,        // Only include nickname
+                    id: price.id                     // Only include id
+                })),
+        };
+    });
+
     
-    res.render('singleproduct' , {products: products.data , product: product, prices: prices.data})
+    res.render('singleproduct' , { product: clientProduct, products: productsWithPrices})
 })
 
 

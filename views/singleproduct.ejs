@@ -27,7 +27,7 @@
         .col-2 > div{
             margin-top: 33px;
         }
-        .prices{
+       .col-2 .title-price{
             display: flex;
             justify-content: space-between;
         
@@ -90,9 +90,9 @@
             <img src="<%= product.images[0] %>" width="650px" height="600px" alt=" <%= product.name %>">
         </div>
         <div class="col-2">
-            <div class="prices">
+            <div class="title-price">
                 <p><%= product.name %></p>
-                <p>$<%= (product.default_price / 100).toFixed(2) %></p>
+                <p>$<%= (product.default_price[0] / 100).toFixed(2) %></p>
             </div>
             <div>
                 <img height="45px" width="45px" src="<%= product.images[0] %>" alt=" <% product.name %>">
@@ -103,7 +103,7 @@
             <div>
                 <p>size: <span id="size">s</span></p>
                 <div class="size-btns">
-                    <% prices.forEach(price => { %>
+                    <% product.prices.forEach(price => { %>
                         <% if (price.nickname) { %>
                             <button class="size-btn" id="<%= price.id %>">
                                 <%= price.nickname.charAt(0) %>
