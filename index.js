@@ -21,6 +21,29 @@ app.use(express.static('public'));
 
 
 
+
+
+// offer timer configuration 
+
+let r_time = 30; // calculate the time in seconds then stores in this variable.
+let timerInterval;
+
+function timer() {
+    function updateTimer() {
+        if (r_time > 0) {
+            r_time--;
+            timerInterval = setTimeout(updateTimer, 1000);
+        }else{
+            clearTimeout(timerInterval)
+        }
+    }
+    updateTimer();
+}
+
+timer();
+
+
+
 app.get('/', async (req, res) => {
     try {
         // Fetch products
@@ -194,23 +217,6 @@ app.get('/about', async ( req, res)=>{
 //     res.render('offer' , {consistentTime: countdownStartTime  , initial: req.initial});
 // })
 
-
-let r_time = 30;
-let timerInterval;
-
-function timer() {
-    function updateTimer() {
-        if (r_time > 0) {
-            r_time--;
-            timerInterval = setTimeout(updateTimer, 1000);
-        }else{
-            clearTimeout(timerInterval)
-        }
-    }
-    updateTimer();
-}
-
-timer();
 
 app.get('/offer', (req, res) => {
     if(r_time > 0)  res.render('offer', { r_time: r_time });
