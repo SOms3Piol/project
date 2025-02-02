@@ -36,20 +36,25 @@
     <script src="js/script.js"></script>
     <script>
         // Set the initial countdown time (from server)
-        const initialCountdownTime = <%= initial %>; // Read from the server (e.g., 30 seconds)
-        let countdownStartTime = Math.floor(Date.now() / 1000); // Store the current time (seconds)
+        let remainingTime = <%= r_time %>; // Read from the server
     
         // Function to update the timer
         function updateTimer() {
-            // Get the current time in seconds
-            const currentTime = Math.floor(Date.now() / 1000);
+            if (remainingTime > 0) {
+                remainingTime--;
     
-            // Calculate the remaining time (initial countdown - time elapsed since page load)
-            const remainingTime = initialCountdownTime - (currentTime - countdownStartTime);
+                // Calculate days, hours, minutes, and seconds
+                const days = Math.floor(remainingTime / (60 * 60 * 24));
+                const hours = Math.floor((remainingTime % (60 * 60 * 24)) / (60 * 60));
+                const minutes = Math.floor((remainingTime % (60 * 60)) / 60);
+                const seconds = remainingTime % 60;
     
-            if (remainingTime <= 0) {
+                // Display the timer in the format: Days:Hours:Minutes:Seconds
+                document.getElementById('timer').textContent = 
+                    `${days} : ${hours} : ${minutes} : ${seconds}`;
+            } else {
                 // If the countdown expires, reset it
-                // Send AJAX request to inform server to reset the timer (set to 0)
+                // Send AJAX request to inform server to reset the timer
                 fetch('/reset-timer', {
                     method: 'POST',
                     headers: {
@@ -58,19 +63,9 @@
                     body: JSON.stringify({ status: 'expired' }),
                 })
                 .then(() => {
-                    window.location.href = '/offer'; // Redirect to offer-delay page
+                    window.location.href = '/offer'; // Redirect to offer page
                 });
             }
-    
-            // Calculate days, hours, minutes, and seconds
-            const days = Math.floor(remainingTime / (60 * 60 * 24));
-            const hours = Math.floor((remainingTime % (60 * 60 * 24)) / (60 * 60));
-            const minutes = Math.floor((remainingTime % (60 * 60)) / 60);
-            const seconds = remainingTime % 60;
-    
-            // Display the timer in the format: Days:Hours:Minutes:Seconds
-            document.getElementById('timer').textContent = 
-                `${days} : ${hours} : ${minutes} : ${seconds}`;
         }
     
         // Call the updateTimer function every second
@@ -79,6 +74,7 @@
         // Call the function once immediately to initialize the timer
         updateTimer();
     </script>
+    
     
     
     

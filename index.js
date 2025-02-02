@@ -178,27 +178,53 @@ app.get('/about', async ( req, res)=>{
 
 
 
-let countdownStartTime = Math.floor(Date.now() / 1000); // Store the current time (seconds)
+// let countdownStartTime = Math.floor(Date.now() / 1000); // Store the current time (seconds)
 
-const middleware = async ( req, res , next) => {
-    const fileContent  = await fs.readFile('offer-timer.txt','utf-8');
-    const initial = Number(fileContent)
-    if( initial > 0){
-        req.initial = initial;
-       return  next();
+// const middleware = async ( req, res , next) => {
+//     const fileContent  = await fs.readFile('offer-timer.txt','utf-8');
+//     const initial = Number(fileContent)
+//     if( initial > 0){
+//         req.initial = initial;
+//        return  next();
+//     }
+//    return res.render('offer-delay');
+// }
+
+// app.get('/offer' , middleware ,( req ,res)=>{
+//     res.render('offer' , {consistentTime: countdownStartTime  , initial: req.initial});
+// })
+
+
+let r_time = 30;
+let timerInterval;
+
+function timer() {
+    function updateTimer() {
+        if (r_time > 0) {
+            r_time--;
+            timerInterval = setTimeout(updateTimer, 1000);
+        }else{
+            clearTimeout(timerInterval)
+        }
     }
-   return res.render('offer-delay');
+    updateTimer();
 }
 
-app.get('/offer' , middleware ,( req ,res)=>{
-    res.render('offer' , {consistentTime: countdownStartTime  , initial: req.initial});
-})
+timer();
+
+app.get('/offer', (req, res) => {
+    if(r_time > 0)  res.render('offer', { r_time: r_time });
+    else res.render('offer-delay')
+});
+
+
 
 app.post('/reset-timer', async (req, res) => {
     try {
         // Reset the timer to 0 in the file
-        await fs.writeFile('offer-timer.txt', '0');
-        res.send('Timer reset');
+        
+        r_time = 0;
+        res.render('offer-delay')
     } catch (error) {
         console.error('Error updating timer file:', error);
         res.status(500).send('Server error');
